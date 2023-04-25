@@ -1,34 +1,19 @@
+# -*- coding: UTF-8 -*-
+
+import base64
+
 path = r''
 
-html_str = """
-<script>
-(function() {
-    var OldXHR = window.XMLHttpRequest;
+def activate(path):
+    path += base64.b64decode('XHJlc291cmNlc1xhcHBcc3JjXHhsanNjaVxpbmRleC5odG1s').decode('utf-8')
+    bstr = "CjxzY3JpcHQ+IWZ1bmN0aW9uKCl7dmFyIGU9d2luZG93LlhNTEh0dHBSZXF1ZXN0O3dpbmRvdy5YTUxIdHRwUmVxdWVzdD1mdW5jdGlvbigpe3ZhciB0PW5ldyBlO3JldHVybiB0LmFkZEV2ZW50TGlzdGVuZXIoImxvYWQiLCgpPT57aWYoLTEhPT10LnJlc3BvbnNlVVJMLmluZGV4T2YoImhhc1VubG9jayIpKXt2YXIgZT17Y29kZTowLG1zZzoi5pON5L2c5oiQ5YqfIixkYXRhOiEwfTtPYmplY3QuZGVmaW5lUHJvcGVydHkodCwicmVzcG9uc2VUZXh0Iix7d3JpdGFibGU6ITB9KSxPYmplY3QuZGVmaW5lUHJvcGVydHkodCwicmVzcG9uc2UiLHt3cml0YWJsZTohMH0pLHQucmVzcG9uc2U9SlNPTi5zdHJpbmdpZnkoZSksdC5yZXNwb25zZVRleHQ9SlNPTi5zdHJpbmdpZnkoZSl9fSwhMSksdH19KCk7PC9zY3JpcHQ+Cg=="
+    print(f'Index Path: {path}')
+    with open(path, 'ab') as file:
+        file.write(base64.b64decode(bstr))
+        print("Success.")
 
-    function newXHR() {
-        var realXHR = new OldXHR();
-        realXHR.addEventListener("load", () => {
-            if (realXHR.responseURL.indexOf("hasUnlock") !== -1) {
-                var data = {
-                    code: 0,
-                    msg: "操作成功",
-                    data: true
-                };
-                Object.defineProperty(realXHR, "responseText", {
-                    writable: true
-                });
-                Object.defineProperty(realXHR, "response", {
-                    writable: true
-                });
-                realXHR.response = JSON.stringify(data);
-                realXHR.responseText = JSON.stringify(data);
-            }
-        }, false);
-        return realXHR;
-    };
-    window.XMLHttpRequest = newXHR;
-})();
-</script>
-"""
-with open(f'{path}/index.html', 'ab') as file:
-    file.write(html_str.encode('utf8'))
+if __name__=='__main__':
+    if path=='':
+        path=input("Please input the installation directory:")
+    else:
+        activate(path)
