@@ -14,6 +14,7 @@ def activate(path):
         print("Success.")
 
 if __name__=='__main__':
+    print("NOTICE: If the installation directory is in the C drive (Windows), you may need administrator privileges to run this file.")
     if path=='' and len(argv)<=1:
         path=input("Please input the installation directory:")
     if path:activate(path)
