@@ -4,9 +4,10 @@
 from base64 import b64decode
 from sys import argv, platform, executable
 from ctypes import windll
+from os import system
 from winreg import OpenKey, QueryValueEx, CloseKey, HKEY_LOCAL_MACHINE
 
-path = ''
+path = r''
 
 
 def defultpath():
@@ -52,9 +53,13 @@ def activate(path):
             run_as_admin(param=path)
         else:
             print("[-] Already have administrator privileges.")
-    with open(path, 'ab') as file:
-        file.write(b64decode(bstr))
-        print("\033[1;32m[√] Success.\033[0m")
+    try:
+        with open(path, 'ab') as file:
+            file.write(b64decode(bstr))
+            print("\033[1;32m[√] Success.\033[0m")
+    except Exception as e:
+        print("\033[1;31m[×] Failed.\033[0m")
+        print(e)
 
 
 if __name__ == '__main__':
@@ -70,3 +75,5 @@ if __name__ == '__main__':
         activate(path)
     else:
         activate(argv[1])
+    print("\n按任意键退出...")
+    system('pause >nul')
